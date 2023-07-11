@@ -1,4 +1,4 @@
-const apiBaseUrl = 'https://auth.nomoreparties.co'; //заменить
+const apiBaseUrl = 'https://api.mesto.pristupa.nomoredomains.work'; //заменить
 
 function checkQueryResult(res) {
   if (res.ok) {

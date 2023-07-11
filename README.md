@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.55.90
 
-Frontend https://...
+Frontend https://mesto.pristupa.nomoredomains.work/
 
-Backend https://...
+Backend https://api.mesto.pristupa.nomoredomains.work/
