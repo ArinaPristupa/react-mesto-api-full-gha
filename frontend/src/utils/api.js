@@ -41,7 +41,7 @@ class Api {
   }
 
   //oтредактированные данные профиля
-  getEditedDataProfile({ name, about }) {
+  getEditedDataProfile(data) {
     const token = localStorage.getItem('jwt');
 
     return this._request(`${this._baseUrl}/users/me`, {
@@ -50,10 +50,10 @@ class Api {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name,
-        about,
-      })
+      body: JSON.stringify({ 
+        name: data.name, 
+        about: data.about 
+      }) 
     })
   }
 
@@ -101,7 +101,7 @@ class Api {
   }
 
   //обновление аватара пользователя
-  updateAvatarUser({ avatar }) {
+  updateAvatarUser(cardId) {
     const token = localStorage.getItem('jwt');
 
     return this._request(`${this._baseUrl}/users/me/avatar`, {
@@ -111,7 +111,7 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        avatar,
+        avatar: cardId.avatar
       })
     })
   }

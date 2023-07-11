@@ -28,6 +28,7 @@ export const registerUser = (email, password) => {
   return fetch(`${apiBaseUrl}/signup`, {
     method: "POST",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -45,7 +46,6 @@ export const getToken = () => {
   return fetch(`${apiBaseUrl}/users/me`, {
     method: "GET",
     headers: {
-      "Accept": "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },

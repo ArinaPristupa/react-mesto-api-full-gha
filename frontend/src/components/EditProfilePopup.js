@@ -7,7 +7,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
     const currentUser = React.useContext(CurrentUserContext);
 
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const [about, setDescription] = useState('');
 
     useEffect(() => {
         setName(currentUser.name);
@@ -21,7 +21,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
         // Передаём значения управляемых компонентов во внешний обработчик
         onUpdateUser({
             name: name,
-            about: description,
+            about: about,
         });
     }
 
@@ -65,7 +65,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                 maxLength="200"
                 required
                 onChange={handleChangeDescription}
-                value={description || ''}
+                value={about || ''}
             />
             <span className="user-hobby-error popup__input-error"></span>
 
