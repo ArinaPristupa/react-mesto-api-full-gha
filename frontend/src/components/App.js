@@ -43,8 +43,60 @@ function App() {
 
     const navigate = useNavigate();
 
+    function register(email, password) {
+        registerUser(email, password)
+            .then(() => {
+                setisInfoToolTipData({
+                    title: 'Вы успешно зарегистрировались!',
+                    image: okRegister
+                })
+                navigate('/sign-in')
+            })
+            .catch(() => {
+                setisInfoToolTipData({
+                    title: 'Что-то пошло не так! Попробуйте ещё раз.',
+                    image: noRegister
+                })
+            })
+            .finally(setisInfoToolTipPopupOpen(true))
+    }
+
+    function login(email, password) {
+        loginUse(email, password)
+            .then((res) => {
+                localStorage.setItem('jwt', res.token);
+                setIsLoggedIn(true)
+                setEmail(email)
+                navigate('/')
+            })
+            .catch(() => {
+                setisInfoToolTipData({
+                    title: 'Что-то пошло не так! Попробуйте ещё раз.',
+                    image: noRegister
+                })
+                setisInfoToolTipPopupOpen(true)
+            })
+    }
+
     useEffect(() => {
-        if (isLoggedIn)
+        const token = localStorage.getItem('jwt');
+
+        if (token) {
+            getToken(token)
+                .then(res => {
+                    if (res) {
+                        setIsLoggedIn(true);
+                        setEmail(res.email);
+                    }
+                })
+                .catch((err) => {
+                    console.error(err); // выведем ошибку в консоль
+                });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isLoggedIn === true)
             api.getInformationUser()
                 .then((profileData) => {
                     setCurrentUser(profileData)
@@ -154,59 +206,6 @@ function App() {
             })
             .finally(() => setIsLoading(false))
     }
-
-    function register(email, password) {
-        registerUser(email, password)
-            .then(() => {
-                setisInfoToolTipData({
-                    title: 'Вы успешно зарегистрировались!',
-                    image: okRegister
-                })
-                navigate('/sign-in')
-            })
-            .catch(() => {
-                setisInfoToolTipData({
-                    title: 'Что-то пошло не так! Попробуйте ещё раз.',
-                    image: noRegister
-                })
-            })
-            .finally(setisInfoToolTipPopupOpen(true))
-    }
-
-    function login(email, password) {
-        loginUse(email, password)
-            .then((res) => {
-                localStorage.setItem('jwt', res.token);
-                setIsLoggedIn(true)
-                setEmail(email)
-                navigate('/')
-            })
-            .catch(() => {
-                setisInfoToolTipData({
-                    title: 'Что-то пошло не так! Попробуйте ещё раз.',
-                    image: noRegister
-                })
-                setisInfoToolTipPopupOpen(true)
-            })
-    }
-
-    useEffect(() => {
-        const token = localStorage.getItem('jwt');
-
-        if (token) {
-            getToken(token)
-                .then(res => {
-                    setIsLoggedIn(true);
-                    setEmail(res.data.email);
-                })
-                .catch(err => {
-                    if (err.status === 401) {
-                        console.log('401 — Токен не передан или передан не в том формате');
-                    }
-                    console.log('401 — Переданный токен некорректен');
-                });
-        }
-    }, []);
 
     useEffect(() => {
         if (isLoggedIn === true) {

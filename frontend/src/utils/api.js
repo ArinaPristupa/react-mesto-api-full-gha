@@ -1,7 +1,6 @@
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
   }
 
   _request(url, options) {
@@ -15,67 +14,104 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`); // если ошибка, отклоняем промис
   }
 
-  //гет запрос подгрузки карточек с сервер
+  //гет запрос подгрузки карточек с сервера
   getInitialCards() {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
     })
   }
 
   //гет запрос подгрузки информации о пользователe с сервера
   getInformationUser() {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
     })
   }
 
   //oтредактированные данные профиля
-  getEditedDataProfile(data) {
+  getEditedDataProfile({ name, about }) {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        name: data.name,
-        about: data.about
+        name,
+        about,
       })
     })
   }
 
   //добавление новой карточки
-  addNewCard(data) {
+  addNewCard({ name, link }) {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        name: data.name,
-        link: data.link
+        name,
+        link,
       })
     })
   }
 
   //удаление карточки
   deleteCard(data) {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/cards/${data}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     })
   }
 
   //поставка лайка карточки и удаление лайка карточки
   likeCard(data, isLiked) {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/cards/${data}/likes`, {
-      method: `${isLiked ? 'PUT' : 'DELETE'}`,
-      headers: this._headers
+      method: isLiked ? 'PUT' : 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     })
   }
 
   //обновление аватара пользователя
-  updateAvatarUser(cardId) {
+  updateAvatarUser({ avatar }) {
+    const token = localStorage.getItem('jwt');
+
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        avatar: cardId.avatar
+        avatar,
       })
     })
   }
@@ -83,10 +119,8 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://api.mesto.pristupa.nomoredomains.work',
-  headers: {
-    'Content-Type': 'application/json'
-  }
 });
 
 export default api;
+
 

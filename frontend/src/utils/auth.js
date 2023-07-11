@@ -1,4 +1,4 @@
-const _apiBaseUrl = 'https://api.mesto.pristupa.nomoredomains.work';
+const apiBaseUrl = 'https://api.mesto.pristupa.nomoredomains.work'; //заменить
 
 function checkQueryResult(res) {
   if (res.ok) {
@@ -9,7 +9,7 @@ function checkQueryResult(res) {
 
 // логин пользователя
 export const loginUse = (email, password) => {
-  return fetch(`${_apiBaseUrl}/signin`, {
+  return fetch(`${apiBaseUrl}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,10 +24,10 @@ export const loginUse = (email, password) => {
 
 //регистрация пользователя
 export const registerUser = (email, password) => {
-  return fetch(`${_apiBaseUrl}/signup`, {
+
+  return fetch(`${apiBaseUrl}/signup`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -39,14 +39,18 @@ export const registerUser = (email, password) => {
 }
 
 //запрос для проверки валидности токена и получения email
-export const getToken = (jwt) => {
-  return fetch(`${_apiBaseUrl}/users/me`, {
+export const getToken = () => {
+  const token = localStorage.getItem('jwt');
+
+  return fetch(`${apiBaseUrl}/users/me`, {
     method: "GET",
     headers: {
+      "Accept": "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${jwt}`,
+      Authorization: `Bearer ${token}`,
     },
   })
     .then(checkQueryResult)
 };
+
 
