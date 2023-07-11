@@ -15,7 +15,7 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`); // если ошибка, отклоняем промис
   }
 
-  //гет запрос подгрузки карточек с сервера
+  //гет запрос подгрузки карточек с сервер
   getInitialCards() {
     return this._request(`${this._baseUrl}/cards`, {
       headers: this._headers
