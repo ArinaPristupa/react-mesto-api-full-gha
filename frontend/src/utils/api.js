@@ -118,7 +118,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.mesto.pristupa.nomoredomains.work', //заменить 
+  baseUrl: 'https://api.mesto.pristupa.nomoredomains.work',
 });
 
 export default api;
