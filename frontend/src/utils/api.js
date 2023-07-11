@@ -1,6 +1,7 @@
 class Api {
-  constructor({ baseUrl }) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _request(url, options) {
@@ -16,102 +17,65 @@ class Api {
 
   //гет запрос подгрузки карточек с сервера
   getInitialCards() {
-    const token = localStorage.getItem('jwt');
-
     return this._request(`${this._baseUrl}/cards`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      method: 'GET',
+      headers: this._headers
     })
   }
 
   //гет запрос подгрузки информации о пользователe с сервера
   getInformationUser() {
-    const token = localStorage.getItem('jwt');
-
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      method: 'GET',
+      headers: this._headers
     })
   }
 
   //oтредактированные данные профиля
-  getEditedDataProfile({ name, about }) {
-    const token = localStorage.getItem('jwt');
-
+  getEditedDataProfile(data) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name,
-        about,
+        name: data.name,
+        about: data.about
       })
     })
   }
 
   //добавление новой карточки
-  addNewCard({ name, link }) {
-    const token = localStorage.getItem('jwt');
-
+  addNewCard(data) {
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name,
-        link,
+        name: data.name,
+        link: data.link
       })
     })
   }
 
   //удаление карточки
   deleteCard(data) {
-    const token = localStorage.getItem('jwt');
-
     return this._request(`${this._baseUrl}/cards/${data}`, {
       method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers
     })
   }
 
   //поставка лайка карточки и удаление лайка карточки
   likeCard(data, isLiked) {
-    const token = localStorage.getItem('jwt');
-
     return this._request(`${this._baseUrl}/cards/${data}/likes`, {
       method: `${isLiked ? 'PUT' : 'DELETE'}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers
     })
   }
 
   //обновление аватара пользователя
-  updateAvatarUser({ avatar }) {
-    const token = localStorage.getItem('jwt');
-
+  updateAvatarUser(cardId) {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        avatar,
+        avatar: cardId.avatar
       })
     })
   }
@@ -119,6 +83,9 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://api.mesto.pristupa.nomoredomains.work',
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 export default api;
