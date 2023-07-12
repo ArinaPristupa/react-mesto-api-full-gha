@@ -131,7 +131,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [isLoggedIn]);
+  }, []);
 
 
     const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.link || isInfoToolTipPopupOpen
