@@ -168,22 +168,9 @@ function App() {
             });
     }
 
-    function handleUpdateUser(data) {
+    function handleUpdateUser({ name, about }) {
         setIsLoading(true);
-        api.getEditedDataProfile(data)
-            .then((newData) => {
-                setCurrentUser(newData.data);
-                closeAllPopups();
-            })
-            .catch((err) => {
-                console.log(err); // выведем ошибку в консоль
-            })
-            .finally(() => setIsLoading(false))
-    }
-
-    function handleUpdateAvatar(data) {
-        setIsLoading(true);
-        api.updateAvatarUser(data)
+        api.getEditedDataProfile({ name, about })
             .then((newData) => {
                 setCurrentUser(newData);
                 closeAllPopups();
@@ -193,6 +180,19 @@ function App() {
             })
             .finally(() => setIsLoading(false))
     }
+
+    function handleUpdateAvatar({ avatar }) {
+        setIsLoading(true);
+        api.updateAvatarUser({ avatar })
+            .then((newData) => {
+                setCurrentUser({ ...currentUser, avatar: newData.avatar });
+                closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err); // выведем ошибку в консоль
+            })
+            .finally(() => setIsLoading(false))
+    }    
 
     function handleAddPlaceSubmit(data) {
         setIsLoading(true);
