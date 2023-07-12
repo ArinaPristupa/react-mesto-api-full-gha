@@ -21,7 +21,7 @@ import noRegister from '../images/no.svg'
 
 function App() {
 
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState('');
 
     const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
@@ -95,30 +95,44 @@ function App() {
         }
     }, []);
 
-    useEffect(() => {
-        if (isLoggedIn === true)
-            api.getInformationUser()
-                .then((profileData) => {
-                    setCurrentUser(profileData)
-                })
-                .catch((err) => {
-                    console.log(err); // выведем ошибку в консоль
-                })
+    // useEffect(() => {
+    //     if (isLoggedIn === true)
+    //         api.getInformationUser()
+    //             .then((profileData) => {
+    //                 setCurrentUser(profileData)
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err); // выведем ошибку в консоль
+    //             })
 
-            api.getInitialCards()
-                .then((cardData) => {
-                    setCards(cardData.map((data) => ({
-                        _id: data._id,
-                        name: data.name,
-                        link: data.link,
-                        likes: data.likes,
-                        owner: data.owner
-                    })))
-                })
-                .catch((err) => {
-                    console.log(err); // выведем ошибку в консоль
-                });
-    }, [isLoggedIn])
+    //         api.getInitialCards()
+    //             .then((cardData) => {
+    //                 setCards(cardData.map((data) => ({
+    //                     _id: data._id,
+    //                     name: data.name,
+    //                     link: data.link,
+    //                     likes: data.likes,
+    //                     owner: data.owner
+    //                 })))
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err); // выведем ошибку в консоль
+    //             });
+    // }, [isLoggedIn])
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      Promise.all([api.getInformationUser(), api.getInitialCards()])
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isLoggedIn]);
+
 
     const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.link || isInfoToolTipPopupOpen
 
