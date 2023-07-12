@@ -52,7 +52,7 @@ class Api {
       },
       body: JSON.stringify({ 
         name: data.name, 
-        about: data.about 
+        about: data.about, 
       }) 
     })
   }
@@ -111,7 +111,7 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        avatar: cardId.avatar
+        avatar: cardId.avatar,
       })
     })
   }

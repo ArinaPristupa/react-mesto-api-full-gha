@@ -173,7 +173,6 @@ function App() {
         api.getEditedDataProfile(data)
             .then((newData) => {
                 setCurrentUser(newData);
-                console.log(currentUser);
                 closeAllPopups();
             })
             .catch((err) => {
