@@ -50,10 +50,7 @@ class Api {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ 
-        name: data.name, 
-        about: data.about, 
-      }) 
+      body: JSON.stringify(data) 
     })
   }
 
