@@ -21,7 +21,7 @@ import noRegister from '../images/no.svg'
 
 function App() {
 
-    const [currentUser, setCurrentUser] = useState('');
+    const [currentUser, setCurrentUser] = useState({});
 
     const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
