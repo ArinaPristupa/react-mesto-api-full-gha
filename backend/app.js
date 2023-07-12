@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const router = require('express').Router();
 const { errors } = require('celebrate');
@@ -29,7 +28,6 @@ app.use(requestLogger);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
