@@ -172,7 +172,7 @@ function App() {
         setIsLoading(true);
         api.getEditedDataProfile(data)
             .then((newData) => {
-                setCurrentUser(newData);
+                setCurrentUser(newData.data);
                 closeAllPopups();
             })
             .catch((err) => {
