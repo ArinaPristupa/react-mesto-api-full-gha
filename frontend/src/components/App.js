@@ -103,8 +103,8 @@ function App() {
                 })
                 .catch((err) => {
                     console.log(err); // выведем ошибку в консоль
-                });
-        if (isLoggedIn)
+                })
+
             api.getInitialCards()
                 .then((cardData) => {
                     setCards(cardData.map((data) => ({
@@ -168,9 +168,9 @@ function App() {
             });
     }
 
-    function handleUpdateUser({ name, about }) {
+    function handleUpdateUser(data) {
         setIsLoading(true);
-        api.getEditedDataProfile({ name, about })
+        api.getEditedDataProfile(data)
             .then((newData) => {
                 setCurrentUser(newData);
                 closeAllPopups();
@@ -181,18 +181,19 @@ function App() {
             .finally(() => setIsLoading(false))
     }
 
-    function handleUpdateAvatar({ avatar }) {
+    function handleUpdateAvatar(data) {
         setIsLoading(true);
-        api.updateAvatarUser({ avatar })
+        api.updateAvatarUser(data)
             .then((newData) => {
-                setCurrentUser({ ...currentUser, avatar: newData.avatar });
+                setCurrentUser(newData);
                 closeAllPopups();
             })
             .catch((err) => {
                 console.log(err); // выведем ошибку в консоль
             })
             .finally(() => setIsLoading(false))
-    }    
+    }
+   
 
     function handleAddPlaceSubmit(data) {
         setIsLoading(true);
