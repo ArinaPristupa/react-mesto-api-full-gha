@@ -182,22 +182,9 @@ function App() {
             });
     }
 
-    // function handleUpdateUser(data) {
-    //     setIsLoading(true);
-    //     api.getEditedDataProfile(data)
-    //         .then((newData) => {
-    //             setCurrentUser(newData.data);
-    //             closeAllPopups();
-    //         })
-    //         .catch((err) => {
-    //             console.log(err); // выведем ошибку в консоль
-    //         })
-    //         .finally(() => setIsLoading(false))
-    // }
-
-    function handleUpdateAvatar(data) {
+    function handleUpdateUser(data) {
         setIsLoading(true);
-        api.updateAvatarUser(data)
+        api.getEditedDataProfile(data)
             .then((newData) => {
                 setCurrentUser(newData.data);
                 closeAllPopups();
@@ -207,6 +194,19 @@ function App() {
             })
             .finally(() => setIsLoading(false))
     }
+
+    // function handleUpdateAvatar(data) {
+    //     setIsLoading(true);
+    //     api.updateAvatarUser(data)
+    //         .then((newData) => {
+    //             setCurrentUser(newData.data);
+    //             closeAllPopups();
+    //         })
+    //         .catch((err) => {
+    //             console.log(err); // выведем ошибку в консоль
+    //         })
+    //         .finally(() => setIsLoading(false))
+    // }
    
 
     function handleAddPlaceSubmit(data) {
@@ -305,7 +305,7 @@ function App() {
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
-                    // onUpdateUser={handleUpdateUser}
+                    onUpdateUser={handleUpdateUser}
                     isLoading={isLoading}
                 />
 
@@ -324,7 +324,7 @@ function App() {
                 <EditAvatarPopup
                     isOpen={isEditAvatarPopupOpen}
                     onClose={closeAllPopups}
-                    onUpdateAvatar={handleUpdateAvatar}
+                    // onUpdateAvatar={handleUpdateAvatar}
                     isLoading={isLoading}
                 />
 
