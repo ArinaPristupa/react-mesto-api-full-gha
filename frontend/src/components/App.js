@@ -186,7 +186,7 @@ function App() {
         setIsLoading(true);
         api.getEditedDataProfile(data)
             .then((newData) => {
-                setCurrentUser(newData.data);
+                setCurrentUser(newData);
                 closeAllPopups();
             })
             .catch((err) => {
@@ -199,7 +199,7 @@ function App() {
         setIsLoading(true);
         api.updateAvatarUser(data)
             .then((newData) => {
-                setCurrentUser(newData.data);
+                setCurrentUser(newData);
                 closeAllPopups();
             })
             .catch((err) => {
