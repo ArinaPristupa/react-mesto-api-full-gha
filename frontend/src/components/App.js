@@ -182,18 +182,18 @@ function App() {
             });
     }
 
-    function handleUpdateUser(data) {
-        setIsLoading(true);
-        api.getEditedDataProfile(data)
-            .then((newData) => {
-                setCurrentUser(newData.data);
-                closeAllPopups();
-            })
-            .catch((err) => {
-                console.log(err); // выведем ошибку в консоль
-            })
-            .finally(() => setIsLoading(false))
-    }
+    // function handleUpdateUser(data) {
+    //     setIsLoading(true);
+    //     api.getEditedDataProfile(data)
+    //         .then((newData) => {
+    //             setCurrentUser(newData.data);
+    //             closeAllPopups();
+    //         })
+    //         .catch((err) => {
+    //             console.log(err); // выведем ошибку в консоль
+    //         })
+    //         .finally(() => setIsLoading(false))
+    // }
 
     function handleUpdateAvatar(data) {
         setIsLoading(true);
@@ -305,7 +305,7 @@ function App() {
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
-                    onUpdateUser={handleUpdateUser}
+                    // onUpdateUser={handleUpdateUser}
                     isLoading={isLoading}
                 />
 
