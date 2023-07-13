@@ -195,18 +195,18 @@ function App() {
             .finally(() => setIsLoading(false))
     }
 
-    // function handleUpdateAvatar(data) {
-    //     setIsLoading(true);
-    //     api.updateAvatarUser(data)
-    //         .then((newData) => {
-    //             setCurrentUser(newData.data);
-    //             closeAllPopups();
-    //         })
-    //         .catch((err) => {
-    //             console.log(err); // выведем ошибку в консоль
-    //         })
-    //         .finally(() => setIsLoading(false))
-    // }
+    function handleUpdateAvatar(data) {
+        setIsLoading(true);
+        api.updateAvatarUser(data)
+            .then((newData) => {
+                setCurrentUser(newData.data);
+                closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err); // выведем ошибку в консоль
+            })
+            .finally(() => setIsLoading(false))
+    }
    
 
     function handleAddPlaceSubmit(data) {
@@ -324,7 +324,7 @@ function App() {
                 <EditAvatarPopup
                     isOpen={isEditAvatarPopupOpen}
                     onClose={closeAllPopups}
-                    // onUpdateAvatar={handleUpdateAvatar}
+                    onUpdateAvatar={handleUpdateAvatar}
                     isLoading={isLoading}
                 />
 
